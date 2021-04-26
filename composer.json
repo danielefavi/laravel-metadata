@@ -1,0 +1,26 @@
+{
+    "name": "danielefavi/meta",
+    "description": "Laravel package for handling metadata for all your models.",
+    "keywords": [
+        "laravel-meta",
+        "metadata",
+        "meta"
+    ],
+    "type": "library",
+    "require": {
+        "php": "^7.2|^8.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniele Favi",
+            "email": "info@danielefavi.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DanieleFavi\\Meta\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
