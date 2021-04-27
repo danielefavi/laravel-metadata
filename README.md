@@ -14,7 +14,7 @@ $age = $user->getMeta('age);
 Install the package via composer:
 
 ```sh
-composer require danielefavi/meta
+composer require danielefavi/metadata
 ```
 
 Then run the migration:
