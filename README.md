@@ -17,13 +17,22 @@ Install the package via composer:
 composer require danielefavi/metadata
 ```
 
+Then add in the `config/app.php` file the entry `DanieleFavi\Metadata\MetaServiceProvider::class,` in the `providers` section:
+
+```php
+    'providers' => [
+        // ...
+        DanieleFavi\Metadata\MetaServiceProvider::class,
+    ],
+```
+
 Then run the migration:
 
 ```sh
 php artisan migrate
 ```
 
-## Configuration
+## How to use *Laravel Metadata* in your model
 
 After installing the package you have to add the trait `HasMetadata` in your model.
 
