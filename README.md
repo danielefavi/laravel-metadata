@@ -25,17 +25,17 @@ php artisan migrate
 
 ## Configuration
 
-After installing the package you have to add the trait `HasMeta` in your model.
+After installing the package you have to add the trait `HasMetadata` in your model.
 
 For example 
 
 ```php
-use DanieleFavi\Meta\HasMeta; // to add in your model
+use DanieleFavi\Metadata\HasMetadata; // to add in your model
 
 class User extends Authenticatable
 {
     use HasFactory;
-    use HasMeta; // to add in your model
+    use HasMetadata; // to add in your model
     
     // ...
 }

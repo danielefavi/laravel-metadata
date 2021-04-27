@@ -1,8 +1,8 @@
 <?php
 
-namespace DanieleFavi\Meta;
+namespace DanieleFavi\Metadata;
 
-trait HasMeta
+trait HasMetadata
 {
 
     /**
@@ -12,7 +12,7 @@ trait HasMeta
      */
     public function metas()
     {
-        return $this->morphMany(\DanieleFavi\Meta\Meta::class, 'model');
+        return $this->morphMany(\DanieleFavi\Metadata\Meta::class, 'model');
     }
 
     /**

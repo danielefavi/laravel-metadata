@@ -1,6 +1,6 @@
 <?php
 
-namespace DanieleFavi\Meta;
+namespace DanieleFavi\Metadata;
 
 use Illuminate\Database\Eloquent\Model;
 

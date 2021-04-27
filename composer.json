@@ -19,7 +19,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "DanieleFavi\\Meta\\": "src/"
+            "DanieleFavi\\Metadata\\": "src/"
         }
     },
     "minimum-stability": "dev"
