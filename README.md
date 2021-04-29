@@ -6,7 +6,7 @@ Laravel Metadata let you store extra data using your model without adding any ex
 $user->saveMeta('age', 25); // storing
 $user->saveMeta('dog_name', 'Buddy'); // storing
 
-$age = $user->getMeta('age);
+$age = $user->getMeta('age');
 ```
 
 ## Installation

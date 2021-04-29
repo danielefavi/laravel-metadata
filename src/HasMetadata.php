@@ -144,4 +144,87 @@ trait HasMetadata
         return  $this->metas()->delete();
     }
 
+    /**
+     * Scope function for querying the metadata. Example:
+     * User::metaWhere('some_key', 'like', '%_some_value_%')->get();
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string|int|float $metaKey
+     * @param mixed $metaValue
+     * @return void
+     */
+    public function scopeMetaWhere($query, $metaKey, $metaValue)
+    {
+        list($metaKey, $metaValue, $condition) = $this->getMetaWhereArgs(func_get_args());
+ 
+        return $query->whereHas('metas', function ($subQuery) use ($metaKey, $metaValue, $condition) {
+            $subQuery->where('key', $metaKey);
+ 
+            if ($condition === null) {
+                $subQuery->where('value', $metaValue);
+            } else {
+                $subQuery->where('value', $condition, $metaValue);
+            }
+        });
+    }
+ 
+    /**
+     * Scope function for querying the metadata. Example
+     * User::metaWhere('hair_color', 'brown')
+     *      ->orMetaWhere('hair_color', 'pink')
+     *      ->get();
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string|int|float $metaKey
+     * @param mixed $metaValue
+     * @return void
+     */
+    public function scopeOrMetaWhere($query, $metaKey, $metaValue)
+    {
+        list($metaKey, $metaValue, $condition) = $this->getMetaWhereArgs(func_get_args());
+ 
+        return $query->orWhereHas('metas', function ($subQuery) use ($metaKey, $metaValue, $condition) {
+            $subQuery->where('key', $metaKey);
+ 
+            if ($condition === null) {
+                $subQuery->where('value', $metaValue);
+            } else {
+                $subQuery->where('value', $condition, $metaValue);
+            }
+        });
+    }
+ 
+    /**
+     * Return the list of arguments passed to the scope function.
+     *
+     * @param array $args
+     * @return array
+     */
+    private function getMetaWhereArgs(array $args): array
+    {
+        // removing all instances of the query builder from the arguments: the firsts arguments passed
+        // to the scope function are instances of Builder and they can be as many are the sub-queries
+        $argsFiltered = array_values( array_filter($args, function($arg) {
+            return !($arg instanceof \Illuminate\Database\Eloquent\Builder);
+        }) );
+
+        // the first filtered argument is the meta key
+        $metaKey = $argsFiltered[0];
+ 
+        if (count($args) > 2) {
+            // the second position can be the condition, EG: "like" or ">=" or "<=" or ...
+            // and the third position the meta value
+            // EXAMPLE: User::metaWhere('some_key', 'like', '%_some_value_%')
+            $condition = $args[1];
+            $metaValue = json_encode($args[2]); // the metavalue are stored as json in the DB
+        } else {
+            // or the second position can be the metavalue and the condition is by default "="
+            // EXAMPLE: User::metaWhere('some_key', 'some_value')
+            $metaValue = json_encode($args[1]); // the metavalue are stored as json in the DB
+            $condition = null;
+        }
+ 
+        return [ $metaKey, $metaValue, $condition ];
+    }
+
 }
