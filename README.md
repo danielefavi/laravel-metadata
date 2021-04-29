@@ -102,14 +102,6 @@ If you need to get the metadata object (and not just the value as `getMeta` and 
 $metaObj = $user->getMetaObj('address');
 ```
 
-### Getting the meta objects of the model
-
-Getting the collection of metadata attached to the model:
-
-```php
-$list = $user->metas;
-```
-
 ### Deleting the metadata
 
 ```php
@@ -122,3 +114,46 @@ $user->deleteMeta(['phone_number', 'address']);
 // delete all metadata
 $user->deleteAllMeta();
 ```
+
+### Getting the meta objects of the model
+
+Getting the collection of metadata attached to the model:
+
+```php
+$list = $user->metas;
+```
+
+### Querying
+
+Getting all the users that have the hair color brown or pink.
+
+```php
+$users = User::metaWhere('hair_color', 'brown')
+            ->orMetaWhere('hair_color', 'pink')
+            ->get();
+```
+Getting all the users with the hair color brown or pink and with a dog named Charlie:
+
+```php
+$users = User::metaWhere('dog_name', 'charlie')
+            ->where(function($query) {
+                return $query->metaWhere('hair_color', 'brown')
+                    ->orMetaWhere('hair_color', 'pink');
+            })
+            ->get();
+```
+
+### Advanced Metadata Query
+
+You can query the metadata using `has`, `whereHas` and `with`. For example:
+
+```php
+$users = User::whereHas('metas', function($query) {
+    $query->where('key', 'hair_color');
+    $query->where('value', json_encode('blue')); // remember to json_encode the value!!!
+})->get();
+
+```
+
+**Important**: when doing your custom queries remember to JSON encode the metavalue because in the DB the metavalue is stored as JSON.  
+In the example above
