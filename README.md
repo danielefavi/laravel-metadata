@@ -157,3 +157,19 @@ $users = User::whereHas('metas', function($query) {
 
 **Important**: when doing your custom queries remember to JSON encode the metavalue because in the DB the metavalue is stored as JSON.  
 In the example above
+
+## Eager Loading the Metadata
+
+Getting all the users with all their metadata:
+
+```php
+$users = User::with('metas')->get();
+```
+
+Or lazy loading the metadata:
+
+```php
+$user = User::find(1);
+
+$user->load('metas');
+```
