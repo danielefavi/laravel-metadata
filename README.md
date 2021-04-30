@@ -78,7 +78,7 @@ $user->saveMetas([
 The method `getMeta` retrieve the metadata for the given key:
 
 ```php
-$phoneNumber = $user->getMeta('phone_number');
+$phoneNumber = $user->getMeta('phone_number'); // the value of $phoneNumber is '111222333'
 
 // Default value in case the metadata has not been found (default: null)
 $anotherMeta = $user->getMeta('another_meta', 10);
@@ -87,10 +87,15 @@ $anotherMeta = $user->getMeta('another_meta', 10);
 You can retrieve the metadata in bulk 
 
 ```php
-// return the metadata for the given keys
+// return an array key => value with the metadata specified for the given keys
 $metas = $user->getMetas(['phone_number', 'address']);
+// the value of the $metas is an array key => value:
+// [
+//     'phone_number' => '111222333',
+//     'address' => '29 Arlington Avenue'
+// ]
 
-// return all metadata of the user model
+// return an array key => value containing all metadata of the user model
 $metas = $user->getMetas();
 ```
 
