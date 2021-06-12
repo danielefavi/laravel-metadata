@@ -98,6 +98,38 @@ trait HasMetadata
     }
 
     /**
+     * Increment a meta value.
+     *
+     * @param string $key
+     * @param integer $incrementalValue|1
+     * @return integer
+     */
+    public function incrementMeta(string $key, $incrementalValue=1): int
+    {
+        $value = (int)$this->getMeta($key, 0) + $incrementalValue;
+
+        $this->saveMeta($key, $value);
+
+        return $value;
+    }
+
+    /**
+     * Decrement a meta value.
+     *
+     * @param string $key
+     * @param integer $incrementalValue|1
+     * @return integer
+     */
+    public function decrementMeta(string $key, $incrementalValue=1): int
+    {
+        $value = (int)$this->getMeta($key, 0) - $incrementalValue;
+
+        $this->saveMeta($key, $value);
+
+        return $value;
+    }
+    
+    /**
      * Check if the model has a meta value.
      *
      * @param string $key
