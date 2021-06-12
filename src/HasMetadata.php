@@ -120,13 +120,9 @@ trait HasMetadata
      * @param integer $incrementalValue|1
      * @return integer
      */
-    public function decrementMeta(string $key, $incrementalValue=1): int
+    public function decrementMeta(string $key, $decrementValue=1): int
     {
-        $value = (int)$this->getMeta($key, 0) - $incrementalValue;
-
-        $this->saveMeta($key, $value);
-
-        return $value;
+        return $this->incrementMeta($key, -1 * $decrementValue);
     }
     
     /**
