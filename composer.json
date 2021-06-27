@@ -1,5 +1,5 @@
 {
-    "name": "danielefavi/metadata",
+    "name": "danielefavi/laravel-metadata",
     "description": "Laravel package for handling metadata for all your models.",
     "keywords": [
         "laravel-meta",

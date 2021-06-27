@@ -14,7 +14,7 @@ $age = $user->getMeta('age');
 Install the package via composer:
 
 ```sh
-composer require danielefavi/metadata
+composer require danielefavi/laravel-metadata
 ```
 
 Then add in the `config/app.php` file the entry `DanieleFavi\Metadata\MetaServiceProvider::class,` in the `providers` section:
